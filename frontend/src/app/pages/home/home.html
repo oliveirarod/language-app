@@ -1,0 +1,60 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-7 col-md-9">
+
+      <app-progress-tracker></app-progress-tracker>
+
+      <!-- CARD PRINCIPAL -->
+      <div class="card shadow-lg border-light">
+        <div class="card-header bg-primary text-white text-center">
+          <h5 class="mb-0">O que significa esta palavra?</h5>
+        </div>
+
+        <div class="card-body p-4 text-center">
+          
+          <!-- Feedback para "Já sei" -->
+          @if (feedbackMessage) {
+            <div class="alert alert-success">
+              <i class="bi bi-check-circle-fill me-2"></i> {{ feedbackMessage }}
+            </div>
+          }
+
+          <!-- A Palavra Atual -->
+          <h1 class="display-3 my-4 font-monospace">{{ currentWord }}</h1>
+
+          <!-- Botões de Ação -->
+          @if (!wordDetails && !isLoading && !feedbackMessage) {
+            <div>
+              <button class="btn btn-success btn-lg mx-2" (click)="handleKnownWord()">
+                <i class="bi bi-check-lg me-2"></i> Já sei
+              </button>
+              <button class="btn btn-warning btn-lg mx-2" (click)="handleUnknownWord()">
+                <i class="bi bi-question-lg me-2"></i> Não sei
+              </button>
+            </div>
+          }
+
+          <!-- Spinner de Carregamento -->
+          @if (isLoading) {
+            <div class="d-flex justify-content-center my-3">
+              <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Buscando...</span>
+              </div>
+            </div>
+          }
+
+          <!-- DETALHES DA PALAVRA (A PARTE NOVA) -->
+          @if (wordDetails) {
+            <app-word-details [details]="wordDetails" />
+
+            <div class="d-grid gap-2 mt-4">
+              <button class="btn btn-primary btn-lg" (click)="showNextWord()">
+                Próxima Palavra <i class="bi bi-arrow-right-circle-fill ms-2"></i>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

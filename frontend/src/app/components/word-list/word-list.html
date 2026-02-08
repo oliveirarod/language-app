@@ -1,0 +1,11 @@
+<h4><i class="bi {{ iconClass }} me-2"></i>{{ title }}</h4>
+
+@if (words.length > 0) {
+  <ul class="list-group">
+    @for (word of words; track word) {
+      <li class="list-group-item">{{ word }}</li>
+    }
+  </ul>
+} @else {
+  <p class="text-muted fst-italic">Nenhuma palavra nesta lista ainda.</p>
+}

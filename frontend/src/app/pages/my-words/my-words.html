@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <!-- Linha de Estatísticas -->
+  <div class="row mb-4 g-3">
+    <div class="col-md-4">
+      <app-stats-card title="Palavras Aprendidas" [value]="stats.known" cardClass="bg-success" />
+    </div>
+    <div class="col-md-4">
+      <app-stats-card title="Para Revisar" [value]="stats.unknown" cardClass="bg-warning" />
+    </div>
+    <div class="col-md-4">
+      <app-stats-card title="Total de Palavras" [value]="stats.total" cardClass="bg-info" />
+    </div>
+  </div>
+
+  <!-- Linha das Listas de Palavras -->
+  <div class="row">
+    <div class="col-md-6">
+      <app-word-list title="Eu já sei:" [words]="knownWords" iconClass="bi-check-circle-fill text-success" />
+    </div>
+    <div class="col-md-6">
+      <app-word-list title="Preciso aprender:" [words]="unknownWords" iconClass="bi-journal-bookmark-fill text-warning" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<!-- Agora temos apenas UMA condição, que espera pelo nosso ViewModel -->
+@if (viewModel$ | async; as vm) {
+  <div class="progress-container mb-4">
+    <div class="d-flex justify-content-between mb-1">
+      <span class="fw-bold">Seu Progresso</span>
+      <!-- Usamos os dados do ViewModel: vm.stats.known, vm.stats.total -->
+      <span class="text-muted">{{ vm.stats.known }} / {{ vm.stats.total }} Palavras</span>
+    </div>
+    
+    <div class="progress" role="progressbar" [attr.aria-valuenow]="vm.percentage" aria-valuemin="0" aria-valuemax="100" style="height: 20px">
+      <!-- Usamos o dado do ViewModel: vm.percentage -->
+      <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" [style.width.%]="vm.percentage">
+        {{ vm.percentage }}%
+      </div>
+    </div>
+  </div>
+}

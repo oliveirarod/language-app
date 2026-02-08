@@ -1,0 +1,17 @@
+<!-- Usamos a pipe 'async' para obter o valor do Observable 'stats$' -->
+@if (stats$ | async; as stats) {
+  <div class="d-flex align-items-center gap-3 text-white">
+    <span class="badge bg-success d-flex align-items-center gap-2" title="Palavras Aprendidas">
+      <i class="bi bi-check-circle-fill"></i>
+      {{ stats.known }}
+    </span>
+    <span class="badge bg-warning d-flex align-items-center gap-2" title="Para Revisar">
+      <i class="bi bi-journal-bookmark-fill"></i>
+      {{ stats.unknown }}
+    </span>
+    <span class="badge bg-info d-flex align-items-center gap-2" title="Total de Palavras">
+      <i class="bi bi-bar-chart-fill"></i>
+      {{ stats.total }}
+    </span>
+  </div>
+}

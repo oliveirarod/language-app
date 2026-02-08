@@ -1,0 +1,49 @@
+<div class="text-start mt-4">
+  <div class="alert alert-light border text-center">
+    <h3 class="mb-0 text-primary">{{ details.translation }}</h3>
+  </div>
+
+  <div class="accordion" id="detailsAccordion">
+    <!-- Acordeão para Definições -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDefinitions">
+          <i class="bi bi-journal-text me-2"></i> Definições e Contextos
+        </button>
+      </h2>
+      <div id="collapseDefinitions" class="accordion-collapse collapse show" data-bs-parent="#detailsAccordion">
+        <div class="accordion-body">
+          <ul class="list-group list-group-flush">
+            @for (def of details.definitions; track $index) {
+              <li class="list-group-item">
+                <span class="badge bg-secondary me-2">{{ def.context }}</span>
+                {{ def.meaning }}
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acordeão para Exemplos -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExamples">
+          <i class="bi bi-chat-right-quote-fill me-2"></i> Frases de Exemplo
+        </button>
+      </h2>
+      <div id="collapseExamples" class="accordion-collapse collapse" data-bs-parent="#detailsAccordion">
+        <div class="accordion-body">
+          <ul class="list-group list-group-flush">
+            @for (ex of details.examples; track $index) {
+              <li class="list-group-item">
+                <p class="mb-1"><strong>EN:</strong> "{{ ex.en }}"</p>
+                <p class="mb-0 text-muted"><strong>PT:</strong> "{{ ex.pt }}"</p>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
