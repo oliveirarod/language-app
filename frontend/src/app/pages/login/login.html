@@ -1,0 +1,48 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6 col-lg-4">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h3 class="card-title text-center mb-4">Login</h3>
+        
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          
+          <!-- Campo de Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" class="form-control" formControlName="email" placeholder="seu@email.com">
+            @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+              <div class="form-text text-danger">Por favor, insira um email válido.</div>
+            }
+          </div>
+
+          <!-- Campo de Senha -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" id="password" class="form-control" formControlName="password">
+          </div>
+
+          <!-- Mensagem de Erro da API -->
+          @if (errorMessage) {
+            <div class="alert alert-danger py-2">{{ errorMessage }}</div>
+          }
+
+          <!-- Botão de Envio -->
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid || isLoading">
+              @if (isLoading) {
+                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                Entrando...
+              } @else {
+                Entrar
+              }
+            </button>
+          </div>
+        </form>
+
+        <div class="text-center mt-3">
+          <small class="text-muted">Não tem uma conta? <a routerLink="/register">Cadastre-se</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

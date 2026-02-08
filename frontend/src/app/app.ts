@@ -10,13 +10,9 @@ import { StateService } from './services/state.service';
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App implements OnInit {
+export class App {
 
-  constructor(private stateService: StateService) {}
+  constructor() {}
 
   protected readonly title = signal('frontend');
-
-  ngOnInit(): void {
-    this.stateService.loadInitialStats();
-  }
 }

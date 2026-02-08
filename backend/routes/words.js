@@ -4,6 +4,7 @@ const OpenAI = require('openai');
 const WordCache = require('../models/wordCache'); // Importa nosso modelo de cache
 const User = require('../models/user');
 const mongoose = require('mongoose');
+const auth = require('../middleware/auth'); 
 
 // A lista total de palavras do nosso app
 const TOTAL_WORD_LIST = require('../config/wordlist');
@@ -60,25 +61,21 @@ router.post('/info', async (req, res) => {
     }
 });
 
-// GET /api/words/next/:userId
-router.get('/next/:userId', async (req, res) => {
+// GET /api/words/next
+router.get('/next', auth, async (req, res) => {
     try {
-        // Valida se o ID do usuário é um ObjectId válido do Mongo
-        if (!mongoose.Types.ObjectId.isValid(req.params.userId)) {
-            return res.status(400).json({ error: 'ID de usuário inválido.' });
-        }
+        // 1. Pega o ID do usuário a partir do token
+        const userId = req.user.id;
+        const user = await User.findById(userId);
 
-        let user = await User.findById(req.params.userId);
-
-        // Se o usuário não existe, cria um novo
+        // 2. Verificação de segurança (caso o usuário do token não exista mais)
         if (!user) {
-            user = new User({ _id: req.params.userId, knownWords: [], unknownWords: [] });
-            await user.save();
-            console.log('Novo usuário criado com sucesso!');
+            return res.status(404).json({ error: 'Usuário não encontrado.' });
         }
 
+        // Lógica para encontrar a próxima palavra (agora correta)
         const seenWords = [...user.knownWords, ...user.unknownWords];
-        const availableWords = TOTAL_WORD_LIST.filter(word => !seenWords.includes(word));
+        const availableWords = TOTAL_WORD_LIST.filter(word => !seenWords.includes(word.toLowerCase()));
 
         if (availableWords.length === 0) {
             return res.json({ word: null, message: "Parabéns! Você viu todas as palavras." });

@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose'); // Garanta que está importado
 
+const authRoutes = require('./routes/auth');
 const wordRoutes = require('./routes/words');
 const userRoutes = require('./routes/users');
 
@@ -18,6 +19,7 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB conectado com sucesso!'))
   .catch(err => console.error('Falha ao conectar com o MongoDB:', err));
 
+app.use('/api/auth', authRoutes);
 app.use('/api/words', wordRoutes);
 app.use('/api/users', userRoutes);
 

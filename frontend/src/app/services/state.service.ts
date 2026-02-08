@@ -18,10 +18,7 @@ export class StateService {
    * Será chamado pelo componente principal do app.
    */
   public loadInitialStats(): void {
-    // Só busca se os dados ainda não foram carregados.
-    if (this.statsSubject.value === null) {
-      this.refreshStats();
-    }
+    this.refreshStats();
   }
 
   /**
@@ -31,5 +28,10 @@ export class StateService {
     this.apiService.getUserStats().subscribe(stats => {
       this.statsSubject.next(stats);
     });
+  }
+
+  // Limpa os dados do BehaviorSubject e limpar os dados no logout
+  public clearStats(): void {
+    this.statsSubject.next(null);
   }
 }
